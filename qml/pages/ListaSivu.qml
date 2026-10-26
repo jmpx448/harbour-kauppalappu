@@ -37,6 +37,9 @@ Page {
                 // Ennakoiva syöttö pitää sanan kesken "esimuokattuna", jolloin text ei
                 // päivity ennen välilyöntiä eikä ehdotuksia näkyisi kirjoittaessa.
                 inputMethodHints: Qt.ImhNoPredictiveText
+                // Oletus (ClearItemFocus) vie fokuksen ja näppäimistön, kun ehdotusta napautetaan.
+                // Ehdotusten näkyessä fokus pidetään, muuten listan napautus sulkee näppäimistön.
+                focusOutBehavior: ehdotusRivi.visible ? FocusBehavior.KeepFocus : FocusBehavior.ClearItemFocus
                 EnterKey.iconSource: "image://theme/icon-m-add"
                 EnterKey.enabled: Logiikka.jasenna(text) !== null
                 EnterKey.onClicked: lisaa(text)
