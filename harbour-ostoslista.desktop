@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-ostoslista
+Exec=sailfish-qml harbour-ostoslista
+Name=Ostoslista
+
+[X-Sailjail]
+Permissions=
+OrganizationName=fi.jmp
+ApplicationName=ostoslista
