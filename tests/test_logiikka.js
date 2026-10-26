@@ -76,6 +76,11 @@ test("ehdotukset: alusta osuvat ensin, sitten useimmin ja viimeksi ostetut", () 
     assert.deepEqual(j(L.ehdotukset(h, "mai", { maito: true }, 5)), ["Maitorahka", "Kaura maito"]);
     assert.deepEqual(j(L.ehdotukset(h, "  ", {}, 5)), []);
     assert.deepEqual(j(L.ehdotukset(h, "x", {}, 5)), []);
+    // Kokonaan kirjoitettu nimi ei ehdota itseään, pidemmät kyllä.
+    const s = [{ nimi: "Sipuli", kerrat: 9, viimeksi: 1 }, { nimi: "Sipulikeitto", kerrat: 1, viimeksi: 1 }];
+    assert.deepEqual(j(L.ehdotukset(s, "sipuli", {}, 5)), ["Sipulikeitto"]);
+    assert.deepEqual(j(L.ehdotukset(s, "Sipuli ", {}, 5)), ["Sipulikeitto"]);
+    assert.deepEqual(j(L.ehdotukset(s, "sip", {}, 5)), ["Sipuli", "Sipulikeitto"]);
     // Tasapelissä viimeksi ostettu ensin.
     const t = [{ nimi: "a1", kerrat: 1, viimeksi: 1 }, { nimi: "a2", kerrat: 1, viimeksi: 2 }];
     assert.deepEqual(j(L.ehdotukset(t, "a", {}, 5)), ["a2", "a1"]);
@@ -90,4 +95,13 @@ test("jarjesta: ostettavat lisäysjärjestyksessä, kerätyt alla uusin ensin", 
     ];
     assert.deepEqual(j(L.jarjesta(t)).map((x) => x.nimi), ["c", "a", "d", "b"]);
     assert.equal(t[0].nimi, "a", "alkuperäinen taulukko ei saa muuttua");
+});
+
+test("taytto: nimi ja välilyönti, kirjoitettu määrä nimen perään", () => {
+    assert.equal(L.taytto("Sipuli", ""), "Sipuli ");
+    assert.equal(L.taytto(" Maito ", "3"), "Maito 3 ");
+    // Täytetty teksti jäsentyy takaisin samaksi tuotteeksi.
+    assert.deepEqual(j(L.jasenna(L.taytto("Maito", "3"))), { nimi: "Maito", maara: "3" });
+    assert.deepEqual(j(L.jasenna(L.taytto("Sipuli", "") + "2 kg")), { nimi: "Sipuli", maara: "2 kg" });
+    assert.deepEqual(j(L.jasenna(L.taytto("Maito", "") + "3 + 2sin")), { nimi: "Maito", maara: "3 + 2sin" });
 });

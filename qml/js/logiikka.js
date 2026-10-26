@@ -89,7 +89,8 @@ function ehdotukset(historia, alku, listalla, n) {
     for (var i = 0; i < historia.length; ++i) {
         var h = historia[i];
         var avain = normalisoi(h.nimi);
-        if (listalla && listalla[avain])
+        // Täsmälleen kirjoitettu nimi ei ole ehdotus: napautus on jo täyttänyt sen kenttään.
+        if ((listalla && listalla[avain]) || avain === a)
             continue;
         var taso = -1;
         if (avain.indexOf(a) === 0)
@@ -107,6 +108,13 @@ function ehdotukset(historia, alku, listalla, n) {
     for (var j = 0; j < osumat.length && j < (n || 5); ++j)
         tulos.push(osumat[j].h.nimi);
     return tulos;
+}
+
+// Ehdotuksen napautus täyttää kentän nimellä ja välilyönnillä, jotta määrän voi kirjoittaa
+// perään ("Sipuli " → "Sipuli 3"). Jo kirjoitettu määrä siirtyy nimen perään.
+function taytto(nimi, maara) {
+    var m = siisti(maara);
+    return siisti(nimi) + " " + (m ? m + " " : "");
 }
 
 // Ostettavat lisäysjärjestyksessä ylhäällä, kerätyt alla viimeksi kerätty ensin.

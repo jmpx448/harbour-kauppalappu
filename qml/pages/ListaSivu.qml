@@ -75,10 +75,13 @@ Page {
                             text: modelData
                             color: highlighted ? Theme.highlightColor : Theme.primaryColor
                         }
-                        // Napautus lisää ehdotuksen, ja kirjoitettu määrä ("2 mai" → "2 Maito") säilyy.
+                        // Napautus täyttää nimen kenttään ("Sipuli "), ja määrän voi kirjoittaa
+                        // perään ennen lisäystä: tuotteet toistuvat, määrät vaihtelevat.
                         onClicked: {
                             var m = ehdotusRivi.jasennetty ? ehdotusRivi.jasennetty.maara : "";
-                            syote.lisaa(m ? m + " " + modelData : modelData);
+                            syote.text = Logiikka.taytto(modelData, m);
+                            syote.cursorPosition = syote.text.length;
+                            syote.forceActiveFocus();
                         }
                         // Pitkä painallus poistaa kirjoitusvirheen ehdotuksista pysyvästi.
                         onPressAndHold: app.unohda(modelData)
