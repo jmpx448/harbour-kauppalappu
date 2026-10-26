@@ -74,6 +74,18 @@ ApplicationWindow {
     function vaihdaKeratty(tid) { Tietokanta.vaihdaKeratty(db, tid, Date.now()); lataa(); }
     function muokkaa(tid, nimi, maara) { Tietokanta.muokkaa(db, tid, nimi, maara); lataa(); }
     function poista(tid) { Tietokanta.poista(db, tid); lataa(); }
+
+    // Raahauksen päätteeksi: ostettavat ovat mallin alussa siinä järjestyksessä, johon
+    // käyttäjä ne siirsi (ListModel.move raahauksen aikana).
+    function tallennaJarjestys() {
+        var idt = [];
+        for (var i = 0; i < tuoteMalli.count; ++i) {
+            if (!tuoteMalli.get(i).keratty)
+                idt.push(tuoteMalli.get(i).tid);
+        }
+        Tietokanta.asetaJarjestys(db, idt);
+        lataa();
+    }
     function tyhjennaKeratyt() { Tietokanta.tyhjennaKeratyt(db); lataa(); }
     function unohda(nimi) { Tietokanta.unohda(db, nimi); lataa(); }
 

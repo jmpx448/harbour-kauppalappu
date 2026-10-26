@@ -17,7 +17,7 @@ test("alusta on toistettava ja kirjaa skeeman", () => {
     const db = uusi();
     T.alusta(db);
     const r = db.sqlite.prepare("SELECT arvo FROM asetukset WHERE avain = 'skeema'").all();
-    assert.deepEqual(j(r), [{ arvo: "1" }]);
+    assert.deepEqual(j(r), [{ arvo: "2" }]);
 });
 
 test("lisaa: uusi tuote, tyhjä syöte", () => {
@@ -25,7 +25,7 @@ test("lisaa: uusi tuote, tyhjä syöte", () => {
     const r = j(T.lisaa(db, "2 l maitoa", 1000));
     assert.equal(r.tila, "lisatty");
     assert.equal(typeof r.id, "number");
-    assert.deepEqual(j(T.tuotteet(db)), [{ id: r.id, nimi: "maitoa", maara: "2 l", keratty: 0, lisatty: 1000 }]);
+    assert.deepEqual(j(T.tuotteet(db)), [{ id: r.id, nimi: "maitoa", maara: "2 l", keratty: 0, lisatty: 1000, jarjestys: 1 }]);
     assert.equal(j(T.lisaa(db, "   ", 1001)).tila, "tyhja");
     assert.equal(T.tuotteet(db).length, 1);
 });
@@ -47,7 +47,7 @@ test("lisaa: kerätty tuote palautetaan ostettavaksi uudella määrällä", () =
     T.vaihdaKeratty(db, a.id, 50);
     const b = j(T.lisaa(db, "leipä", 60));
     assert.deepEqual(b, { tila: "palautettu", id: a.id });
-    assert.deepEqual(j(T.tuotteet(db)), [{ id: a.id, nimi: "leipä", maara: "", keratty: 0, lisatty: 60 }]);
+    assert.deepEqual(j(T.tuotteet(db)), [{ id: a.id, nimi: "leipä", maara: "", keratty: 0, lisatty: 60, jarjestys: 1 }]);
 });
 
 test("vaihdaKeratty edestakaisin ja järjestys", () => {
@@ -120,4 +120,45 @@ test("virhe kesken transaktion perutaan kokonaan", () => {
 test("lukutransaktio hylkää kirjoituksen (kuten Qt)", () => {
     const db = uusi();
     assert.throws(() => db.readTransaction((tx) => tx.executeSql("DELETE FROM tuotteet")), /Read-only/);
+});
+
+test("asetaJarjestys: raahattu järjestys säilyy, uusi tuote loppuun", () => {
+    const db = uusi();
+    const a = j(T.lisaa(db, "a", 1)).id, b = j(T.lisaa(db, "b", 2)).id, c = j(T.lisaa(db, "c", 3)).id;
+    T.asetaJarjestys(db, [c, a, b]);
+    assert.deepEqual(nimet(db), ["c", "a", "b"]);
+    j(T.lisaa(db, "d", 4));
+    assert.deepEqual(nimet(db), ["c", "a", "b", "d"]);
+    // Kerätty ja takaisin palautettu (napautus) palaa vanhalle paikalleen.
+    T.vaihdaKeratty(db, a, 5);
+    assert.deepEqual(nimet(db), ["c", "b", "d", "a"]);
+    T.vaihdaKeratty(db, a, 6);
+    assert.deepEqual(nimet(db), ["c", "a", "b", "d"]);
+    // Uudelleen lisätty kerätty tuote menee loppuun.
+    T.vaihdaKeratty(db, c, 7);
+    j(T.lisaa(db, "c 2", 8));
+    assert.deepEqual(nimet(db), ["a", "b", "d", "c"]);
+});
+
+test("skeemapäivitys 1 → 2: vanha tietokanta saa sarakkeen, järjestys ja tiedot säilyvät", () => {
+    const db = valeTietokanta();
+    db.sqlite.exec(`
+        CREATE TABLE asetukset (avain TEXT PRIMARY KEY, arvo TEXT NOT NULL);
+        CREATE TABLE tuotteet (id INTEGER PRIMARY KEY AUTOINCREMENT, nimi TEXT NOT NULL, avain TEXT NOT NULL,
+            maara TEXT NOT NULL DEFAULT '', keratty INTEGER NOT NULL DEFAULT 0, lisatty INTEGER NOT NULL);
+        CREATE TABLE historia (avain TEXT PRIMARY KEY, nimi TEXT NOT NULL, kerrat INTEGER NOT NULL,
+            viimeksi INTEGER NOT NULL);
+        INSERT INTO asetukset VALUES ('skeema', '1');
+        INSERT INTO tuotteet (nimi, avain, maara, lisatty) VALUES ('Maito', 'maito', '3 + 2sin', 10);
+        INSERT INTO tuotteet (nimi, avain, maara, lisatty) VALUES ('Sipuli', 'sipuli', '', 20);
+        INSERT INTO historia VALUES ('maito', 'Maito', 4, 10);`);
+    T.alusta(db);
+    T.alusta(db);  // toistettava: ei toista ALTERia
+    assert.deepEqual(j(T.tuotteet(db)).map((t) => [t.nimi, t.maara, t.jarjestys]),
+                     [["Maito", "3 + 2sin", 0], ["Sipuli", "", 0]]);
+    assert.equal(j(T.historia(db))[0].kerrat, 4);
+    j(T.lisaa(db, "Leipä", 30));
+    assert.deepEqual(nimet(db), ["Maito", "Sipuli", "Leipä"]);
+    const r = db.sqlite.prepare("SELECT arvo FROM asetukset WHERE avain = 'skeema'").all();
+    assert.deepEqual(j(r), [{ arvo: "2" }]);
 });

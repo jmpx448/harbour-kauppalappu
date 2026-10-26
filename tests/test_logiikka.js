@@ -105,3 +105,14 @@ test("taytto: nimi ja välilyönti, kirjoitettu määrä nimen perään", () => 
     assert.deepEqual(j(L.jasenna(L.taytto("Sipuli", "") + "2 kg")), { nimi: "Sipuli", maara: "2 kg" });
     assert.deepEqual(j(L.jasenna(L.taytto("Maito", "") + "3 + 2sin")), { nimi: "Maito", maara: "3 + 2sin" });
 });
+
+test("jarjesta: käyttäjän järjestys voittaa lisäysjärjestyksen, puuttuva = 0", () => {
+    const t = [
+        { id: 1, nimi: "a", keratty: 0, lisatty: 1, jarjestys: 3 },
+        { id: 2, nimi: "b", keratty: 0, lisatty: 2, jarjestys: 1 },
+        { id: 3, nimi: "c", keratty: 0, lisatty: 3, jarjestys: 2 },
+        { id: 4, nimi: "vanha", keratty: 0, lisatty: 9 },
+        { id: 5, nimi: "kerätty", keratty: 5, lisatty: 0, jarjestys: 0 },
+    ];
+    assert.deepEqual(j(L.jarjesta(t)).map((x) => x.nimi), ["vanha", "b", "c", "a", "kerätty"]);
+});

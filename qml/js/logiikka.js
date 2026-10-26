@@ -117,7 +117,8 @@ function taytto(nimi, maara) {
     return siisti(nimi) + " " + (m ? m + " " : "");
 }
 
-// Ostettavat lisäysjärjestyksessä ylhäällä, kerätyt alla viimeksi kerätty ensin.
+// Ostettavat käyttäjän järjestyksessä (jarjestys, sitten lisäysjärjestys) ylhäällä,
+// kerätyt alla viimeksi kerätty ensin.
 function jarjesta(tuotteet) {
     var kopio = tuotteet.slice();
     kopio.sort(function (x, y) {
@@ -126,7 +127,7 @@ function jarjesta(tuotteet) {
             return xk - yk;
         if (xk)
             return (y.keratty - x.keratty) || (y.id - x.id);
-        return (x.lisatty - y.lisatty) || (x.id - y.id);
+        return ((x.jarjestys || 0) - (y.jarjestys || 0)) || (x.lisatty - y.lisatty) || (x.id - y.id);
     });
     return kopio;
 }

@@ -6,6 +6,9 @@ Page {
     id: sivu
     allowedOrientations: Orientation.All
 
+    // Raahattavan tuotteen tid, -1 kun mitään ei raahata.
+    property int raahattu: -1
+
     RemorsePopup { id: tyhjennys }
 
     SilicaListView {
@@ -102,6 +105,9 @@ Page {
             }
         }
 
+        // Raahauksessa ohitetut rivit liukuvat paikoilleen.
+        moveDisplaced: Transition { NumberAnimation { properties: "y"; duration: 120 } }
+
         section.property: "osio"
         section.delegate: SectionHeader { text: section }
 
@@ -126,6 +132,12 @@ Page {
             }
 
             onClicked: app.vaihdaKeratty(model.tid)
+
+            Rectangle {
+                anchors.fill: parent
+                visible: sivu.raahattu === model.tid
+                color: Theme.rgba(Theme.highlightBackgroundColor, 0.25)
+            }
 
             Image {
                 id: rasti
@@ -153,13 +165,61 @@ Page {
             Label {
                 id: maara
                 anchors {
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
+                    right: kahva.left
+                    rightMargin: Theme.paddingMedium
                     verticalCenter: parent.verticalCenter
                 }
                 text: model.maara
                 color: model.keratty ? Theme.secondaryColor
                                      : (rivi.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
+            }
+
+            // Kahva (≡) vain ostettavissa: painetaan ja vedetään, rivi siirtyy sormen mukana
+            // (ListModel.move), järjestys tallennetaan kun sormi nostetaan. Kerätyt eivät
+            // siirry, joten kohde rajataan ostettavien alueelle (ne ovat mallin alussa).
+            Image {
+                id: kahva
+                anchors {
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                    verticalCenter: parent.verticalCenter
+                }
+                width: model.keratty ? 0 : implicitWidth
+                visible: !model.keratty
+                source: "image://theme/icon-m-menu?" + (kahvaAlue.pressed ? Theme.highlightColor
+                                                                          : Theme.secondaryColor)
+
+                MouseArea {
+                    id: kahvaAlue
+                    anchors.fill: parent
+                    anchors.margins: -Theme.paddingMedium
+                    enabled: !model.keratty
+                    preventStealing: true
+
+                    function lopeta() {
+                        if (sivu.raahattu < 0)
+                            return;
+                        sivu.raahattu = -1;
+                        lista.interactive = true;
+                        app.tallennaJarjestys();
+                    }
+
+                    onPressed: {
+                        lista.interactive = false;
+                        sivu.raahattu = model.tid;
+                    }
+                    onPositionChanged: {
+                        var p = mapToItem(lista.contentItem, mouse.x, mouse.y);
+                        var kohde = lista.indexAt(lista.width / 2, p.y);
+                        if (kohde < 0)
+                            return;
+                        kohde = Math.min(kohde, app.ostettavia - 1);
+                        if (kohde !== index)
+                            app.tuotteet.move(index, kohde, 1);
+                    }
+                    onReleased: lopeta()
+                    onCanceled: lopeta()
+                }
             }
         }
 

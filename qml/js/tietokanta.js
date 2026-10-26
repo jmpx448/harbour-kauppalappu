@@ -10,7 +10,8 @@
 // ehdotuksen napautus kaatui "NOT NULL constraint failed"). tests/lataa.js matkii tätä.
 // historia muistaa jokaisen koskaan lisätyn tuotteen ehdotuksia varten.
 
-var SKEEMA = 1;
+// Skeema 2 (0.1.6): tuotteet.jarjestys = käyttäjän raahaama järjestys ostettaville.
+var SKEEMA = 2;
 
 function _rivit(tulos) {
     var r = [];
@@ -19,24 +20,32 @@ function _rivit(tulos) {
     return r;
 }
 
+// Uusi tai takaisin palautettu tuote ostettavien loppuun.
+var _SEURAAVA = "(SELECT COALESCE(MAX(jarjestys), 0) + 1 FROM tuotteet WHERE keratty = 0)";
+
 function alusta(db) {
     db.transaction(function (tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS asetukset (avain TEXT PRIMARY KEY, arvo TEXT NOT NULL)");
         tx.executeSql("CREATE TABLE IF NOT EXISTS tuotteet ("
                       + "id INTEGER PRIMARY KEY AUTOINCREMENT, nimi TEXT NOT NULL, avain TEXT NOT NULL, "
                       + "maara TEXT NOT NULL DEFAULT '', keratty INTEGER NOT NULL DEFAULT 0, "
-                      + "lisatty INTEGER NOT NULL)");
+                      + "lisatty INTEGER NOT NULL, jarjestys INTEGER NOT NULL DEFAULT 0)");
         tx.executeSql("CREATE TABLE IF NOT EXISTS historia ("
                       + "avain TEXT PRIMARY KEY, nimi TEXT NOT NULL, kerrat INTEGER NOT NULL, "
                       + "viimeksi INTEGER NOT NULL)");
-        tx.executeSql("INSERT OR IGNORE INTO asetukset (avain, arvo) VALUES ('skeema', ?)", [String(SKEEMA)]);
+        var s = _rivit(tx.executeSql("SELECT arvo FROM asetukset WHERE avain = 'skeema'"));
+        if (s.length && parseInt(s[0].arvo, 10) < 2) {
+            // Vanhat rivit saavat 0:n → järjestyvät lisäysjärjestyksessä kuten ennenkin.
+            tx.executeSql("ALTER TABLE tuotteet ADD COLUMN jarjestys INTEGER NOT NULL DEFAULT 0");
+        }
+        tx.executeSql("INSERT OR REPLACE INTO asetukset (avain, arvo) VALUES ('skeema', ?)", [String(SKEEMA)]);
     });
 }
 
 function tuotteet(db) {
     var r = [];
     db.readTransaction(function (tx) {
-        r = _rivit(tx.executeSql("SELECT id, nimi, maara, keratty, lisatty FROM tuotteet"));
+        r = _rivit(tx.executeSql("SELECT id, nimi, maara, keratty, lisatty, jarjestys FROM tuotteet"));
     });
     return Logiikka.jarjesta(r);
 }
@@ -68,11 +77,13 @@ function lisaa(db, syote, nyt) {
             var keratty = _rivit(tx.executeSql(
                 "SELECT id FROM tuotteet WHERE avain = ? ORDER BY keratty DESC, id DESC LIMIT 1", [avain]));
             if (keratty.length) {
-                tx.executeSql("UPDATE tuotteet SET nimi = ?, maara = COALESCE(?, ''), keratty = 0, lisatty = ? WHERE id = ?",
+                tx.executeSql("UPDATE tuotteet SET nimi = ?, maara = COALESCE(?, ''), keratty = 0, lisatty = ?, "
+                              + "jarjestys = " + _SEURAAVA + " WHERE id = ?",
                               [p.nimi, p.maara, nyt, keratty[0].id]);
                 tulos = { tila: "palautettu", id: keratty[0].id };
             } else {
-                var r = tx.executeSql("INSERT INTO tuotteet (nimi, avain, maara, lisatty) VALUES (?, ?, COALESCE(?, ''), ?)",
+                var r = tx.executeSql("INSERT INTO tuotteet (nimi, avain, maara, lisatty, jarjestys) "
+                                      + "VALUES (?, ?, COALESCE(?, ''), ?, " + _SEURAAVA + ")",
                                       [p.nimi, avain, p.maara, nyt]);
                 tulos = { tila: "lisatty", id: parseInt(r.insertId, 10) };
             }
@@ -103,6 +114,14 @@ function muokkaa(db, id, nimi, maara) {
                       [n, Logiikka.normalisoi(n), Logiikka.siisti(maara), id]);
     });
     return true;
+}
+
+// Raahauksen jälkeen: idt = ostettavat uudessa järjestyksessä (1, 2, 3, …).
+function asetaJarjestys(db, idt) {
+    db.transaction(function (tx) {
+        for (var i = 0; i < idt.length; ++i)
+            tx.executeSql("UPDATE tuotteet SET jarjestys = ? WHERE id = ?", [i + 1, idt[i]]);
+    });
 }
 
 function poista(db, id) {
