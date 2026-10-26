@@ -38,8 +38,10 @@ Page {
                 // päivity ennen välilyöntiä eikä ehdotuksia näkyisi kirjoittaessa.
                 inputMethodHints: Qt.ImhNoPredictiveText
                 // Oletus (ClearItemFocus) vie fokuksen ja näppäimistön, kun ehdotusta napautetaan.
-                // Ehdotusten näkyessä fokus pidetään, muuten listan napautus sulkee näppäimistön.
-                focusOutBehavior: ehdotusRivi.visible ? FocusBehavior.KeepFocus : FocusBehavior.ClearItemFocus
+                // Silica päättää tästä 1 ms:n ajastimella napautuksen JÄLKEEN, jolloin täyttö on jo
+                // piilottanut ehdotusrivin — siksi ehto on "kentässä on tekstiä", ei rivin näkyvyys.
+                // Tyhjällä kentällä listan napautus sulkee näppäimistön kuten ennenkin.
+                focusOutBehavior: text.length > 0 ? FocusBehavior.KeepFocus : FocusBehavior.ClearItemFocus
                 EnterKey.iconSource: "image://theme/icon-m-add"
                 EnterKey.enabled: Logiikka.jasenna(text) !== null
                 EnterKey.onClicked: lisaa(text)
