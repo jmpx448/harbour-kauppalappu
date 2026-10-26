@@ -4,6 +4,10 @@
 // parametrina, jotta testit voivat antaa Noden SQLiteen nojaavan vastineen (tests/).
 //
 // tuotteet.keratty = 0 (ostamatta) tai keräyshetki millisekunteina.
+//
+// ⚠️ Qt 5.6:n LocalStorage sitoo tyhjän merkkijonon NULLina, ja maara on NOT NULL →
+// jokainen maara-sidonta kulkee COALESCE(?, '') -lausekkeen kautta (puhelimessa 26.10.
+// ehdotuksen napautus kaatui "NOT NULL constraint failed"). tests/lataa.js matkii tätä.
 // historia muistaa jokaisen koskaan lisätyn tuotteen ehdotuksia varten.
 
 var SKEEMA = 1;
@@ -57,18 +61,18 @@ function lisaa(db, syote, nyt) {
         var auki = _rivit(tx.executeSql(
             "SELECT id, maara FROM tuotteet WHERE avain = ? AND keratty = 0 ORDER BY id LIMIT 1", [avain]));
         if (auki.length) {
-            tx.executeSql("UPDATE tuotteet SET maara = ? WHERE id = ?",
+            tx.executeSql("UPDATE tuotteet SET maara = COALESCE(?, '') WHERE id = ?",
                           [Logiikka.yhdistaMaarat(auki[0].maara, p.maara), auki[0].id]);
             tulos = { tila: "yhdistetty", id: auki[0].id };
         } else {
             var keratty = _rivit(tx.executeSql(
                 "SELECT id FROM tuotteet WHERE avain = ? ORDER BY keratty DESC, id DESC LIMIT 1", [avain]));
             if (keratty.length) {
-                tx.executeSql("UPDATE tuotteet SET nimi = ?, maara = ?, keratty = 0, lisatty = ? WHERE id = ?",
+                tx.executeSql("UPDATE tuotteet SET nimi = ?, maara = COALESCE(?, ''), keratty = 0, lisatty = ? WHERE id = ?",
                               [p.nimi, p.maara, nyt, keratty[0].id]);
                 tulos = { tila: "palautettu", id: keratty[0].id };
             } else {
-                var r = tx.executeSql("INSERT INTO tuotteet (nimi, avain, maara, lisatty) VALUES (?, ?, ?, ?)",
+                var r = tx.executeSql("INSERT INTO tuotteet (nimi, avain, maara, lisatty) VALUES (?, ?, COALESCE(?, ''), ?)",
                                       [p.nimi, avain, p.maara, nyt]);
                 tulos = { tila: "lisatty", id: parseInt(r.insertId, 10) };
             }
@@ -95,7 +99,7 @@ function muokkaa(db, id, nimi, maara) {
     if (n === "")
         return false;
     db.transaction(function (tx) {
-        tx.executeSql("UPDATE tuotteet SET nimi = ?, avain = ?, maara = ? WHERE id = ?",
+        tx.executeSql("UPDATE tuotteet SET nimi = ?, avain = ?, maara = COALESCE(?, '') WHERE id = ?",
                       [n, Logiikka.normalisoi(n), Logiikka.siisti(maara), id]);
     });
     return true;

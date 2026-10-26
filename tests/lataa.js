@@ -37,7 +37,9 @@ function valeTietokanta() {
                 if (vainLuku && !luku)
                     throw new Error("Read-only Transaction");
                 const stmt = sqlite.prepare(sql);
-                const a = args || [];
+                // Qt 5.6:n LocalStorage sitoo tyhjän JS-merkkijonon NULLina (tyhjä QString
+                // → null QVariant). Todettu puhelimessa 26.10.: "NOT NULL constraint failed".
+                const a = (args || []).map((x) => (x === "" ? null : x));
                 if (luku) {
                     const r = stmt.all(...a);
                     return { rows: { length: r.length, item: (i) => r[i] }, rowsAffected: 0, insertId: "" };
