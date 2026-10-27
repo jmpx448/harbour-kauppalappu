@@ -1,5 +1,5 @@
 Name:       harbour-ostoslista
-Version:    0.1.8
+Version:    0.1.9
 Release:    1
 Summary:    Ostoslista Sailfish OS:lle
 License:    MIT
@@ -7,6 +7,7 @@ BuildArch:  noarch
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   libsailfishapp-launcher
 Requires:   qt5-qtdeclarative-import-localstorageplugin
+Requires:   nemo-qml-plugin-notifications-qt5
 
 %description
 Yksinkertainen ostoslista: tuotteet ja määrät, rasti kerätyille, ehdotukset aiemmin

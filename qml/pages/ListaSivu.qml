@@ -71,6 +71,11 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Lähetä kelloon"
+                enabled: app.ostettavia > 0
+                onClicked: app.lahetaKelloon()
+            }
+            MenuItem {
                 text: "Tyhjennä kerätyt"
                 enabled: app.kerattyja > 0
                 onClicked: tyhjennys.execute("Tyhjennetään kerätyt", function () { app.tyhjennaKeratyt(); })

@@ -119,6 +119,16 @@ function taytto(nimi, maara) {
 
 // Ostettavat käyttäjän järjestyksessä (jarjestys, sitten lisäysjärjestys) ylhäällä,
 // kerätyt alla viimeksi kerätty ensin.
+// Kellon ilmoituksen runko: ostettavat riveittäin, määrä nimen perään.
+function kelloteksti(tuotteet) {
+    var rivit = [];
+    for (var i = 0; i < tuotteet.length; ++i) {
+        var m = siisti(tuotteet[i].maara);
+        rivit.push(siisti(tuotteet[i].nimi) + (m ? " " + m : ""));
+    }
+    return rivit.join("\n");
+}
+
 function jarjesta(tuotteet) {
     var kopio = tuotteet.slice();
     kopio.sort(function (x, y) {

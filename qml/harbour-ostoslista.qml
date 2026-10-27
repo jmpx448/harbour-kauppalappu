@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
+import Nemo.Notifications 1.0
 import "js/tietokanta.js" as Tietokanta
 import "js/logiikka.js" as Logiikka
 import "pages"
@@ -86,6 +87,24 @@ ApplicationWindow {
         Tietokanta.asetaJarjestys(db, idt);
         lataa();
     }
+    // Kellolista: ostettavat ilmoituksena, jonka Amazfish välittää kelloon kuten muutkin.
+    // Sama ilmoitus korvataan uudella lähetyksellä, joten puhelimeen jää vain uusin lista.
+    Notification {
+        id: kelloIlmoitus
+        appName: "Ostoslista"
+        appIcon: "/usr/share/icons/hicolor/86x86/apps/harbour-ostoslista.png"
+    }
+    function lahetaKelloon() {
+        var ostettavat = [];
+        for (var i = 0; i < tuoteMalli.count; ++i) {
+            if (!tuoteMalli.get(i).keratty)
+                ostettavat.push(tuoteMalli.get(i));
+        }
+        kelloIlmoitus.summary = "Ostoslista (" + ostettavat.length + ")";
+        kelloIlmoitus.body = Logiikka.kelloteksti(ostettavat);
+        kelloIlmoitus.publish();
+    }
+
     function tyhjennaKeratyt() { Tietokanta.tyhjennaKeratyt(db); lataa(); }
     function unohda(nimi) { Tietokanta.unohda(db, nimi); lataa(); }
 

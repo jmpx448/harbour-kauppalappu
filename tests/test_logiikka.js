@@ -106,6 +106,13 @@ test("taytto: nimi ja välilyönti, kirjoitettu määrä nimen perään", () => 
     assert.deepEqual(j(L.jasenna(L.taytto("Maito", "") + "3 + 2sin")), { nimi: "Maito", maara: "3 + 2sin" });
 });
 
+test("kelloteksti: rivi per tuote, määrä perään, tyhjä lista = tyhjä", () => {
+    assert.equal(L.kelloteksti([{ nimi: " Maito ", maara: "3 + 2sin" }, { nimi: "Sipuli", maara: "" },
+                                { nimi: "Leipä", maara: null }]),
+                 "Maito 3 + 2sin\nSipuli\nLeipä");
+    assert.equal(L.kelloteksti([]), "");
+});
+
 test("jarjesta: käyttäjän järjestys voittaa lisäysjärjestyksen, puuttuva = 0", () => {
     const t = [
         { id: 1, nimi: "a", keratty: 0, lisatty: 1, jarjestys: 3 },
