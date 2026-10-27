@@ -70,7 +70,11 @@ ApplicationWindow {
     function lisaa(teksti) {
         var r = Tietokanta.lisaa(db, teksti, Date.now());
         lataa();
-        return r.tila !== "tyhja";
+        if (r.tila === "tyhja")
+            return false;
+        if (kelloKaytossa)
+            lahetaKelloon();
+        return true;
     }
     function vaihdaKeratty(tid) {
         Tietokanta.vaihdaKeratty(db, tid, Date.now());
@@ -96,8 +100,8 @@ ApplicationWindow {
     // Amazfish (libwatchfish) välittää kelloon vain UUDET ilmoitukset: saman tunnisteen
     // päivitys jää kellosta pois. Siksi vanha suljetaan ja tilalle julkaistaan uusi. Lisäksi
     // Amazfish hylkää täsmälleen edellisen kaltaisen ilmoituksen → otsikossa kellonaika.
-    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote rastitaan (tai rasti
-    // poistetaan); kun kaikki on kerätty, kello saa "Kaikki kerätty" ja päivitys loppuu.
+    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote lisätään tai rastitaan
+    // (tai rasti poistetaan); kun kaikki on kerätty, kello saa "Kaikki kerätty" ja päivitys loppuu.
     property bool kelloKaytossa: false
     Notification {
         id: kelloIlmoitus

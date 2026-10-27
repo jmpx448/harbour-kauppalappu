@@ -10,7 +10,7 @@ datahakemistossa `~/.local/share/fi.jmp/ostoslista/`.
 - Napautus rastii, pitkä painallus: muokkaa / poista. Alasveto: tyhjennä kerätyt.
 - Järjestys: raahaa ostettavaa rivin kahvasta (≡); reunalla lista vierii itsestään. Uusi tuote menee loppuun.
 - Alasveto → Lähetä kelloon: ostettavat ilmoituksena, Amazfish välittää sen kelloon (vain luku).
-  Rastitus päivittää kellon listan itsestään, kunnes kaikki on kerätty.
+  Lisäys ja rastitus päivittävät kellon listan itsestään, kunnes kaikki on kerätty.
 - Ehdotukset aiemmin lisätyistä: napautus täyttää nimen kenttään (`Sipuli `), määrä kirjoitetaan
   perään. Pitkä painallus ehdotukseen unohtaa sen.
 
