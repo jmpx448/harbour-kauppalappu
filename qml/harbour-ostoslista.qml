@@ -82,22 +82,26 @@ ApplicationWindow {
         if (kelloKaytossa)
             lahetaKelloon();
     }
-    function muokkaa(tid, nimi, maara) {
-        // Kerätyn muokkaus ei muuta kellon listaa (siinä on vain ostettavat).
-        var ostettava = false;
+    // Kerätyn muokkaus tai poisto ei muuta kellon listaa (siinä on vain ostettavat).
+    function _onOstettava(tid) {
         for (var i = 0; i < tuoteMalli.count; ++i) {
             if (tuoteMalli.get(i).tid === tid)
-                ostettava = !tuoteMalli.get(i).keratty;
+                return !tuoteMalli.get(i).keratty;
         }
+        return false;
+    }
+    function muokkaa(tid, nimi, maara) {
+        var ostettava = _onOstettava(tid);
         Tietokanta.muokkaa(db, tid, nimi, maara);
         lataa();
         if (kelloKaytossa && ostettava)
             lahetaKelloon();
     }
     function poista(tid) {
+        var ostettava = _onOstettava(tid);
         Tietokanta.poista(db, tid);
         lataa();
-        if (kelloKaytossa)
+        if (kelloKaytossa && ostettava)
             lahetaKelloon();
     }
 
