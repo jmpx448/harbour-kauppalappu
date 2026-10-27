@@ -83,7 +83,12 @@ ApplicationWindow {
             lahetaKelloon();
     }
     function muokkaa(tid, nimi, maara) { Tietokanta.muokkaa(db, tid, nimi, maara); lataa(); }
-    function poista(tid) { Tietokanta.poista(db, tid); lataa(); }
+    function poista(tid) {
+        Tietokanta.poista(db, tid);
+        lataa();
+        if (kelloKaytossa)
+            lahetaKelloon();
+    }
 
     // Raahauksen päätteeksi: ostettavat ovat mallin alussa siinä järjestyksessä, johon
     // käyttäjä ne siirsi (ListModel.move raahauksen aikana).
@@ -100,8 +105,9 @@ ApplicationWindow {
     // Amazfish (libwatchfish) välittää kelloon vain UUDET ilmoitukset: saman tunnisteen
     // päivitys jää kellosta pois. Siksi vanha suljetaan ja tilalle julkaistaan uusi. Lisäksi
     // Amazfish hylkää täsmälleen edellisen kaltaisen ilmoituksen → otsikossa kellonaika.
-    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote lisätään tai rastitaan
-    // (tai rasti poistetaan); kun kaikki on kerätty, kello saa "Kaikki kerätty" ja päivitys loppuu.
+    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote lisätään, poistetaan
+    // tai rastitaan (tai rasti poistetaan); kun ostettavia ei enää ole, kello saa "Kaikki kerätty"
+    // (tai "Lista on tyhjä", jos viimeinen poistettiin eikä kerättyjä ole) ja päivitys loppuu.
     property bool kelloKaytossa: false
     Notification {
         id: kelloIlmoitus
@@ -120,7 +126,8 @@ ApplicationWindow {
         }
         kelloIlmoitus.summary = "Ostoslista (" + ostettavat.length + ") "
                                 + Qt.formatTime(new Date(), "hh:mm");
-        kelloIlmoitus.body = ostettavat.length > 0 ? Logiikka.kelloteksti(ostettavat) : "Kaikki kerätty";
+        kelloIlmoitus.body = ostettavat.length > 0 ? Logiikka.kelloteksti(ostettavat)
+                            : (kerattyja > 0 ? "Kaikki kerätty" : "Lista on tyhjä");
         kelloIlmoitus.publish();
         kelloKaytossa = ostettavat.length > 0;
     }
