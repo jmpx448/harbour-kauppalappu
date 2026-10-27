@@ -8,7 +8,7 @@ datahakemistossa `~/.local/share/fi.jmp/ostoslista/`.
   määränä sellaisenaan). Sama tuote uudelleen → määrät yhdistetään (samat yksiköt summataan,
   muuten ketjutetaan plussalla).
 - Napautus rastii, pitkä painallus: muokkaa / poista. Alasveto: tyhjennä kerätyt.
-- Järjestys: raahaa ostettavaa rivin kahvasta (≡). Uusi tuote menee loppuun.
+- Järjestys: raahaa ostettavaa rivin kahvasta (≡); reunalla lista vierii itsestään. Uusi tuote menee loppuun.
 - Ehdotukset aiemmin lisätyistä: napautus täyttää nimen kenttään (`Sipuli `), määrä kirjoitetaan
   perään. Pitkä painallus ehdotukseen unohtaa sen.
 

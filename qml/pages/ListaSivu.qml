@@ -8,6 +8,59 @@ Page {
 
     // Raahattavan tuotteen tid, -1 kun mitään ei raahata.
     property int raahattu: -1
+    // Sormen y listan näkymässä (ei sisällössä) raahauksen aikana: vieritys siirtää
+    // sisältöä sormen alla, vaikka sormi ei liiku.
+    property real sormiY: 0
+
+    // Siirtää raahattavan sormen kohdalle; kerätyt eivät siirry, joten kohde rajataan
+    // ostettavien alueelle (ne ovat mallin alussa).
+    function siirraSormenKohdalle() {
+        var kohde = lista.indexAt(lista.width / 2, lista.contentY + sormiY);
+        if (kohde < 0)
+            return;
+        kohde = Math.min(kohde, app.ostettavia - 1);
+        for (var i = 0; i < app.tuotteet.count; ++i) {
+            if (app.tuotteet.get(i).tid === raahattu) {
+                if (i !== kohde)
+                    app.tuotteet.move(i, kohde, 1);
+                return;
+            }
+        }
+    }
+
+    // Automaattinen vieritys, kun raahattava viedään näkymän ylä- tai alareunaan.
+    // Nopeus kasvaa reunaa kohti.
+    Timer {
+        interval: 16
+        repeat: true
+        running: sivu.raahattu >= 0
+        onTriggered: {
+            var reuna = Theme.itemSizeSmall;
+            var y = Math.max(0, Math.min(lista.height, sivu.sormiY));
+            var askel = 0;
+            if (y < reuna)
+                askel = -Math.ceil(Theme.paddingLarge * (reuna - y) / reuna);
+            else if (y > lista.height - reuna)
+                askel = Math.ceil(Theme.paddingLarge * (y - (lista.height - reuna)) / reuna);
+            if (askel === 0)
+                return;
+            // Rajat pitävät vetovalikon kiinni ja sisällön näkymässä.
+            var ala = lista.originY;
+            var yla = Math.max(ala, lista.originY + lista.contentHeight - lista.height);
+            var uusi = Math.max(ala, Math.min(yla, lista.contentY + askel));
+            // Alas vain ostettavien loppuun asti: muuten raahattava (rajattu viimeiseksi
+            // ostettavaksi) karkaisi sormen alta ja sen delegaatti voisi tuhoutua kesken.
+            if (askel > 0) {
+                var k = lista.indexAt(lista.width / 2, uusi + sivu.sormiY);
+                if (k < 0 || k >= app.ostettavia)
+                    return;
+            }
+            if (uusi === lista.contentY)
+                return;
+            lista.contentY = uusi;
+            sivu.siirraSormenKohdalle();
+        }
+    }
 
     RemorsePopup { id: tyhjennys }
 
@@ -105,8 +158,9 @@ Page {
             }
         }
 
-        // Raahauksessa ohitetut rivit liukuvat paikoilleen.
-        moveDisplaced: Transition { NumberAnimation { properties: "y"; duration: 120 } }
+        // Ei moveDisplaced-animaatiota: sen kanssa rivi jäi väärään kohtaan otsikon päälle
+        // (puhelimessa 27.10., toistui muutamalla tuotteella). Epäilty syy: Qt 5.6 laskee
+        // animaation kohteen ennen kuin osio-otsikko siirtyy uudelle ensimmäiselle riville.
 
         section.property: "osio"
         section.delegate: SectionHeader { text: section }
@@ -175,8 +229,7 @@ Page {
             }
 
             // Kahva (≡) vain ostettavissa: painetaan ja vedetään, rivi siirtyy sormen mukana
-            // (ListModel.move), järjestys tallennetaan kun sormi nostetaan. Kerätyt eivät
-            // siirry, joten kohde rajataan ostettavien alueelle (ne ovat mallin alussa).
+            // (ListModel.move), järjestys tallennetaan kun sormi nostetaan. Vieritys reunoilla: Timer sivun alussa.
             Image {
                 id: kahva
                 anchors {
@@ -206,16 +259,12 @@ Page {
 
                     onPressed: {
                         lista.interactive = false;
+                        sivu.sormiY = mapToItem(lista, mouse.x, mouse.y).y;
                         sivu.raahattu = model.tid;
                     }
                     onPositionChanged: {
-                        var p = mapToItem(lista.contentItem, mouse.x, mouse.y);
-                        var kohde = lista.indexAt(lista.width / 2, p.y);
-                        if (kohde < 0)
-                            return;
-                        kohde = Math.min(kohde, app.ostettavia - 1);
-                        if (kohde !== index)
-                            app.tuotteet.move(index, kohde, 1);
+                        sivu.sormiY = mapToItem(lista, mouse.x, mouse.y).y;
+                        sivu.siirraSormenKohdalle();
                     }
                     onReleased: lopeta()
                     onCanceled: lopeta()
