@@ -72,7 +72,12 @@ ApplicationWindow {
         lataa();
         return r.tila !== "tyhja";
     }
-    function vaihdaKeratty(tid) { Tietokanta.vaihdaKeratty(db, tid, Date.now()); lataa(); }
+    function vaihdaKeratty(tid) {
+        Tietokanta.vaihdaKeratty(db, tid, Date.now());
+        lataa();
+        if (kelloKaytossa)
+            lahetaKelloon();
+    }
     function muokkaa(tid, nimi, maara) { Tietokanta.muokkaa(db, tid, nimi, maara); lataa(); }
     function poista(tid) { Tietokanta.poista(db, tid); lataa(); }
 
@@ -88,7 +93,12 @@ ApplicationWindow {
         lataa();
     }
     // Kellolista: ostettavat ilmoituksena, jonka Amazfish välittää kelloon kuten muutkin.
-    // Sama ilmoitus korvataan uudella lähetyksellä, joten puhelimeen jää vain uusin lista.
+    // Amazfish (libwatchfish) välittää kelloon vain UUDET ilmoitukset: saman tunnisteen
+    // päivitys jää kellosta pois. Siksi vanha suljetaan ja tilalle julkaistaan uusi. Lisäksi
+    // Amazfish hylkää täsmälleen edellisen kaltaisen ilmoituksen → otsikossa kellonaika.
+    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote rastitaan (tai rasti
+    // poistetaan); kun kaikki on kerätty, kello saa "Kaikki kerätty" ja päivitys loppuu.
+    property bool kelloKaytossa: false
     Notification {
         id: kelloIlmoitus
         appName: "Ostoslista"
@@ -100,9 +110,15 @@ ApplicationWindow {
             if (!tuoteMalli.get(i).keratty)
                 ostettavat.push(tuoteMalli.get(i));
         }
-        kelloIlmoitus.summary = "Ostoslista (" + ostettavat.length + ")";
-        kelloIlmoitus.body = Logiikka.kelloteksti(ostettavat);
+        if (kelloIlmoitus.replacesId > 0) {
+            kelloIlmoitus.close();
+            kelloIlmoitus.replacesId = 0;
+        }
+        kelloIlmoitus.summary = "Ostoslista (" + ostettavat.length + ") "
+                                + Qt.formatTime(new Date(), "hh:mm");
+        kelloIlmoitus.body = ostettavat.length > 0 ? Logiikka.kelloteksti(ostettavat) : "Kaikki kerätty";
         kelloIlmoitus.publish();
+        kelloKaytossa = ostettavat.length > 0;
     }
 
     function tyhjennaKeratyt() { Tietokanta.tyhjennaKeratyt(db); lataa(); }

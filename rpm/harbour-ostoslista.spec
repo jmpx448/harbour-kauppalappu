@@ -1,5 +1,5 @@
 Name:       harbour-ostoslista
-Version:    0.1.9
+Version:    0.1.11
 Release:    1
 Summary:    Ostoslista Sailfish OS:lle
 License:    MIT
