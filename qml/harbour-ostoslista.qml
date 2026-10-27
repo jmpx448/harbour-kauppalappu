@@ -82,7 +82,18 @@ ApplicationWindow {
         if (kelloKaytossa)
             lahetaKelloon();
     }
-    function muokkaa(tid, nimi, maara) { Tietokanta.muokkaa(db, tid, nimi, maara); lataa(); }
+    function muokkaa(tid, nimi, maara) {
+        // Kerätyn muokkaus ei muuta kellon listaa (siinä on vain ostettavat).
+        var ostettava = false;
+        for (var i = 0; i < tuoteMalli.count; ++i) {
+            if (tuoteMalli.get(i).tid === tid)
+                ostettava = !tuoteMalli.get(i).keratty;
+        }
+        Tietokanta.muokkaa(db, tid, nimi, maara);
+        lataa();
+        if (kelloKaytossa && ostettava)
+            lahetaKelloon();
+    }
     function poista(tid) {
         Tietokanta.poista(db, tid);
         lataa();
@@ -105,8 +116,8 @@ ApplicationWindow {
     // Amazfish (libwatchfish) välittää kelloon vain UUDET ilmoitukset: saman tunnisteen
     // päivitys jää kellosta pois. Siksi vanha suljetaan ja tilalle julkaistaan uusi. Lisäksi
     // Amazfish hylkää täsmälleen edellisen kaltaisen ilmoituksen → otsikossa kellonaika.
-    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote lisätään, poistetaan
-    // tai rastitaan (tai rasti poistetaan); kun ostettavia ei enää ole, kello saa "Kaikki kerätty"
+    // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote lisätään, muokataan,
+    // poistetaan tai rastitaan (tai rasti poistetaan); kun ostettavia ei enää ole, kello saa "Kaikki kerätty"
     // (tai "Lista on tyhjä", jos viimeinen poistettiin eikä kerättyjä ole) ja päivitys loppuu.
     property bool kelloKaytossa: false
     Notification {
