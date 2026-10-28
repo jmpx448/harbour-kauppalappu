@@ -49,3 +49,7 @@ New language: copy an existing `.ts` file to `harbour-kauppalappu-<lang>.ts`, se
 Sailjail prevents starting the app over SSH — open it from the phone's UI.
 
 The icon is drawn by `icons/draw.sh` (ImageMagick 7).
+
+## License
+
+MIT, see [LICENSE](LICENSE). © 2026 jmpx448.
