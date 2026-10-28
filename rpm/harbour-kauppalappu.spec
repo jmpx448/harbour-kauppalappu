@@ -1,5 +1,5 @@
 Name:       harbour-kauppalappu
-Version:    0.2.2
+Version:    0.2.3
 Release:    1
 Summary:    Shopping list for Sailfish OS
 License:    MIT
@@ -11,9 +11,19 @@ Requires:   nemo-qml-plugin-notifications-qt5
 Requires:   nemo-qml-plugin-configuration-qt5
 
 %description
-A simple shopping list: items and quantities, a tick for collected items, suggestions
-from earlier purchases, and an optional list on the watch through Amazfish. Pure QML
-(sailfish-qml), data in an SQLite database on the phone.
+Kauppalappu is a simple shopping list for Sailfish OS. Add items with a
+quantity, tick them off as you shop, and drag them into the order you walk
+through the store. Items you have added before are offered as suggestions,
+and adding the same item again merges the quantities. If a watch is paired
+with Amazfish, the list can also be sent to the watch, where it updates as
+you shop.
+
+All data stays on the phone. The app is translated into Finnish, German,
+Spanish, French, Italian, Dutch, Polish, Russian and Swedish.
+
+Note: this app was written with heavy use of an LLM tool. Most of the code,
+tests and translations were written by Claude (Claude Opus 5.5, Anthropic)
+through Claude Code, under the author's direction and testing.
 
 %install
 # Sources straight from the work tree: rpmbuild is run from the Makefile with
