@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=harbour-ostoslista
-Exec=sailfish-qml harbour-ostoslista
-Name=Ostoslista
+Icon=harbour-kauppalappu
+Exec=sailfish-qml harbour-kauppalappu
+Name=Kauppalappu
 
 [X-Sailjail]
 Permissions=
 OrganizationName=fi.jmp
-ApplicationName=ostoslista
+ApplicationName=kauppalappu

@@ -1,26 +1,27 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-// Kansi kotinäkymässä: montako on ostamatta ja ensimmäiset viisi.
+// Cover on the home screen: how many items are left to buy and the first five.
 CoverBackground {
     Column {
         x: Theme.paddingLarge
         y: Theme.paddingLarge
         width: parent.width - 2 * x
         spacing: Theme.paddingSmall
-        visible: app.ostettavia > 0
+        visible: app.toBuyCount > 0
 
         Label {
-            text: app.ostettavia
+            text: app.toBuyCount
             font.pixelSize: Theme.fontSizeHuge
             color: Theme.highlightColor
         }
         Label {
-            text: app.ostettavia === 1 ? "ostettava" : "ostettavaa"
+            //: Below the number of items on the cover, e.g. "3" / "to buy"
+            text: qsTr("to buy", "", app.toBuyCount)
             color: Theme.secondaryColor
         }
         Repeater {
-            model: app.kannenNimet
+            model: app.coverNames
             Label {
                 width: parent.width
                 text: modelData
@@ -31,8 +32,8 @@ CoverBackground {
     }
 
     CoverPlaceholder {
-        visible: app.ostettavia === 0
-        text: "Lista on tyhjä"
-        icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-ostoslista.png"
+        visible: app.toBuyCount === 0
+        text: qsTr("The list is empty")
+        icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-kauppalappu.png"
     }
 }

@@ -1,7 +1,7 @@
-Name:       harbour-ostoslista
-Version:    0.1.17
+Name:       harbour-kauppalappu
+Version:    0.2.0
 Release:    1
-Summary:    Ostoslista Sailfish OS:lle
+Summary:    Shopping list for Sailfish OS
 License:    MIT
 BuildArch:  noarch
 Requires:   sailfishsilica-qt5 >= 0.10.9
@@ -11,13 +11,16 @@ Requires:   nemo-qml-plugin-notifications-qt5
 Requires:   nemo-qml-plugin-configuration-qt5
 
 %description
-Yksinkertainen ostoslista: tuotteet ja määrät, rasti kerätyille, ehdotukset aiemmin
-ostetuista. Puhdas QML (sailfish-qml), tiedot puhelimen SQLite-tietokannassa.
+A simple shopping list: items and quantities, a tick for collected items, suggestions
+from earlier purchases, and an optional list on the watch through Amazfish. Pure QML
+(sailfish-qml), data in an SQLite database on the phone.
 
 %install
-# Lähteet suoraan työpuusta: rpmbuild ajetaan Makefilestä --define "_sourcedir <repo>".
-install -d %{buildroot}%{_datadir}/%{name}
+# Sources straight from the work tree: rpmbuild is run from the Makefile with
+# --define "_sourcedir <repo>"; the .qm files are built by "make qm" into dist/translations.
+install -d %{buildroot}%{_datadir}/%{name}/translations
 cp -r %{_sourcedir}/qml %{buildroot}%{_datadir}/%{name}/
+install -m 644 %{_sourcedir}/dist/translations/*.qm %{buildroot}%{_datadir}/%{name}/translations/
 install -D -m 644 %{_sourcedir}/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 for s in 86 108 128 172; do
     install -D -m 644 %{_sourcedir}/icons/${s}x${s}.png \
