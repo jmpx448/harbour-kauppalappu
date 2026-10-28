@@ -26,8 +26,7 @@ rpm: test qm
 	    --define "_rpmdir $(CURDIR)/dist" \
 	    --define "_builddir $(CURDIR)/dist/build" \
 	    --define "_buildrootdir $(CURDIR)/dist/buildroot" \
-	    --define "_binary_payload w9.xzdio" \
-	    --define "vendor jmp"
+	    --define "_binary_payload w9.xzdio"
 	@ls -l $(RPM)
 
 copy: rpm

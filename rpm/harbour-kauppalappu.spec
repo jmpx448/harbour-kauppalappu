@@ -1,5 +1,5 @@
 Name:       harbour-kauppalappu
-Version:    0.2.1
+Version:    0.2.2
 Release:    1
 Summary:    Shopping list for Sailfish OS
 License:    MIT
@@ -19,7 +19,8 @@ from earlier purchases, and an optional list on the watch through Amazfish. Pure
 # Sources straight from the work tree: rpmbuild is run from the Makefile with
 # --define "_sourcedir <repo>"; the .qm files are built by "make qm" into dist/translations.
 install -d %{buildroot}%{_datadir}/%{name}/translations
-install -D -m 644 %{_sourcedir}/LICENSE %{buildroot}%{_datadir}/licenses/%{name}/LICENSE
+# Harbour allows files only under the app's own paths, not /usr/share/licenses.
+install -m 644 %{_sourcedir}/LICENSE %{buildroot}%{_datadir}/%{name}/LICENSE
 cp -r %{_sourcedir}/qml %{buildroot}%{_datadir}/%{name}/
 install -m 644 %{_sourcedir}/dist/translations/*.qm %{buildroot}%{_datadir}/%{name}/translations/
 install -D -m 644 %{_sourcedir}/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -30,7 +31,6 @@ done
 
 %files
 %defattr(-,root,root,-)
-%license %{_datadir}/licenses/%{name}/LICENSE
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
