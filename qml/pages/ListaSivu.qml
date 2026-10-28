@@ -72,6 +72,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: "Lähetä kelloon"
+                visible: app.kelloSaatavilla
                 enabled: app.ostettavia > 0
                 onClicked: app.lahetaKelloon()
             }

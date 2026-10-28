@@ -11,6 +11,7 @@ datahakemistossa `~/.local/share/fi.jmp/ostoslista/`.
 - Järjestys: raahaa ostettavaa rivin kahvasta (≡); reunalla lista vierii itsestään. Uusi tuote menee loppuun.
 - Alasveto → Lähetä kelloon: ostettavat ilmoituksena, Amazfish välittää sen kelloon (vain luku).
   Lisäys, muokkaus, poisto ja rastitus päivittävät kellon listan itsestään, kunnes kaikki on kerätty.
+  Kellokohdat näkyvät vain, kun Amazfishiin on liitetty kello.
 - Ehdotukset aiemmin lisätyistä: napautus täyttää nimen kenttään (`Sipuli `), määrä kirjoitetaan
   perään. Pitkä painallus ehdotukseen unohtaa sen.
 

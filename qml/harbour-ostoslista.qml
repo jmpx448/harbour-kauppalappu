@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
 import Nemo.Notifications 1.0
+import Nemo.Configuration 1.0
 import "js/tietokanta.js" as Tietokanta
 import "js/logiikka.js" as Logiikka
 import "pages"
@@ -123,6 +124,16 @@ ApplicationWindow {
     // Lähetyksen jälkeen lista päivittyy kelloon itsestään, kun tuote lisätään, muokataan,
     // poistetaan tai rastitaan (tai rasti poistetaan); kun ostettavia ei enää ole, kello saa "Kaikki kerätty"
     // (tai "Lista on tyhjä", jos viimeinen poistettiin eikä kerättyjä ole) ja päivitys loppuu.
+    // Kellokohdat näkyvät vain, jos Amazfishiin on liitetty kello: Amazfish tallentaa
+    // liitetyn kellon osoitteen dconfiin. Ilman Amazfishia tai kelloa avain on tyhjä.
+    ConfigurationValue {
+        id: amazfishKello
+        key: "/uk/co/piggz/amazfish/pairedAddress"
+        defaultValue: ""
+    }
+    readonly property bool kelloSaatavilla: amazfishKello.value !== undefined
+                                            && String(amazfishKello.value) !== ""
+    onKelloSaatavillaChanged: if (!kelloSaatavilla) kelloKaytossa = false
     property bool kelloKaytossa: false
     Notification {
         id: kelloIlmoitus
@@ -130,6 +141,8 @@ ApplicationWindow {
         appIcon: "/usr/share/icons/hicolor/86x86/apps/harbour-ostoslista.png"
     }
     function lahetaKelloon() {
+        if (!kelloSaatavilla)
+            return;
         var ostettavat = [];
         for (var i = 0; i < tuoteMalli.count; ++i) {
             if (!tuoteMalli.get(i).keratty)
