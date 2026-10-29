@@ -96,6 +96,49 @@
         <source>Type an item in the field above</source>
         <translation>Escribe un producto en el campo de arriba</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Ajustes</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Ajustes</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Reloj</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Lista en el reloj</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Añade «Enviar al reloj» al menú desplegable. Los productos por comprar se envían como una notificación, que una aplicación de reloj como Amazfish reenvía al reloj, y la lista se actualiza mientras compras.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Acerca de</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Versión</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licencia</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Hecho con un uso intensivo de una herramienta LLM: la mayor parte del código, las pruebas y las traducciones las escribió Claude (Anthropic) mediante Claude Code, bajo la dirección y las pruebas del autor.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Código fuente</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

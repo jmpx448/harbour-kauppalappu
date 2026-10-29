@@ -98,6 +98,49 @@
         <source>Type an item in the field above</source>
         <translation>Wpisz produkt w polu powyżej</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Ustawienia</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Zegarek</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Lista na zegarku</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Dodaje „Wyślij do zegarka” do menu rozwijanego. Produkty do kupienia są wysyłane jako powiadomienie, które aplikacja zegarka, taka jak Amazfish, przekazuje do zegarka, a lista aktualizuje się podczas zakupów.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>O aplikacji</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Wersja</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licencja</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Wykonano przy intensywnym użyciu narzędzia LLM: większość kodu, testów i tłumaczeń napisał Claude (Anthropic) za pomocą Claude Code, pod kierunkiem autora i przy jego testach.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Kod źródłowy</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

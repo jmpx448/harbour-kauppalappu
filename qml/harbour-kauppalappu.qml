@@ -2,7 +2,6 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
 import Nemo.Notifications 1.0
-import Nemo.Configuration 1.0
 import "js/storage.js" as Storage
 import "js/logic.js" as Logic
 import "pages"
@@ -11,6 +10,7 @@ import "cover"
 ApplicationWindow {
     id: app
 
+    readonly property string version: "0.2.4"
     property var db: null
     property alias items: itemModel
     property int toBuyCount: 0
@@ -126,24 +126,29 @@ ApplicationWindow {
     // deleted or ticked (or unticked); when nothing is left to buy the watch gets "All
     // collected" (or "The list is empty" if the last one was deleted and nothing is collected)
     // and the updates stop.
-    // The watch items are shown only if a watch is paired in Amazfish: Amazfish stores the
-    // paired watch's address in dconf. Without Amazfish or a watch the key is empty.
-    ConfigurationValue {
-        id: amazfishWatch
-        key: "/uk/co/piggz/amazfish/pairedAddress"
-        defaultValue: ""
-    }
-    readonly property bool watchAvailable: amazfishWatch.value !== undefined
-                                           && String(amazfishWatch.value) !== ""
-    onWatchAvailableChanged: if (!watchAvailable) watchActive = false
+    // The watch items are shown only when the user turns the watch list on in Settings (off
+    // by default). The app does not look for a watch app itself: any app that forwards phone
+    // notifications to a watch will do.
+    property bool watchEnabled: false
     property bool watchActive: false
+    function setWatchEnabled(on) {
+        Storage.setSetting(db, "watch", on ? "1" : "0");
+        watchEnabled = on;
+        if (!on) {
+            if (watchNotification.replacesId > 0) {
+                watchNotification.close();
+                watchNotification.replacesId = 0;
+            }
+            watchActive = false;
+        }
+    }
     Notification {
         id: watchNotification
         appName: "Kauppalappu"
         appIcon: "/usr/share/icons/hicolor/86x86/apps/harbour-kauppalappu.png"
     }
     function sendToWatch() {
-        if (!watchAvailable)
+        if (!watchEnabled)
             return;
         var toBuy = [];
         for (var i = 0; i < itemModel.count; ++i) {
@@ -168,6 +173,7 @@ ApplicationWindow {
     Component.onCompleted: {
         db = LocalStorage.openDatabaseSync("kauppalappu", "", "Kauppalappu", 1000000);
         Storage.init(db);
+        watchEnabled = Storage.setting(db, "watch", "0") === "1";
         load();
     }
 

@@ -139,3 +139,14 @@ test("setOrder: the dragged order is kept, a new item goes last", () => {
     j(S.add(db, "c 2", 8));
     assert.deepEqual(names(db), ["a", "b", "d", "c"]);
 });
+
+test("settings: fallback when unset, stored value after setSetting, survives init", () => {
+    const db = fresh();
+    assert.equal(S.setting(db, "watch", "0"), "0");
+    S.setSetting(db, "watch", "1");
+    assert.equal(S.setting(db, "watch", "0"), "1");
+    S.setSetting(db, "watch", "0");
+    S.init(db);
+    assert.equal(S.setting(db, "watch", "1"), "0");
+    assert.equal(S.setting(db, "schema", ""), "1");
+});

@@ -96,6 +96,49 @@
         <source>Type an item in the field above</source>
         <translation>Kirjoita tuote yllä olevaan kenttään</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Asetukset</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Asetukset</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Kello</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Kellolista</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Lisää vetovalikkoon kohdan ”Lähetä kelloon”. Ostettavat lähetetään ilmoituksena, jonka kellosovellus, kuten Amazfish, välittää kelloon, ja lista päivittyy ostosten edetessä.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Tietoja</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Versio</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Lisenssi</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Tehty vahvasti LLM-työkalun avulla: suurimman osan koodista, testeistä ja käännöksistä kirjoitti Claude (Anthropic) Claude Coden kautta tekijän ohjauksessa ja testaamana.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Lähdekoodi</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

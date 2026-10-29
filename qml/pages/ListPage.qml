@@ -72,8 +72,12 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("Settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+            }
+            MenuItem {
                 text: qsTr("Send to watch")
-                visible: app.watchAvailable
+                visible: app.watchEnabled
                 enabled: app.toBuyCount > 0
                 onClicked: app.sendToWatch()
             }

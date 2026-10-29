@@ -96,6 +96,49 @@
         <source>Type an item in the field above</source>
         <translation>Scrivi un articolo nel campo sopra</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Impostazioni</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Impostazioni</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Orologio</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Lista sull&apos;orologio</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Aggiunge «Invia all&apos;orologio» al menu a tendina. Gli articoli da comprare vengono inviati come notifica, che un&apos;app per orologi come Amazfish inoltra all&apos;orologio, e la lista si aggiorna mentre fai la spesa.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Informazioni</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Versione</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licenza</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Realizzato con un uso intensivo di uno strumento LLM: la maggior parte del codice, dei test e delle traduzioni è stata scritta da Claude (Anthropic) tramite Claude Code, sotto la guida e con i test dell&apos;autore.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Codice sorgente</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

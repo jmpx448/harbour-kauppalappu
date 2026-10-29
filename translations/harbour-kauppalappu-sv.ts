@@ -96,6 +96,49 @@
         <source>Type an item in the field above</source>
         <translation>Skriv en vara i fältet ovan</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Inställningar</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Inställningar</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Klocka</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Lista på klockan</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Lägger till ”Skicka till klockan” i rullgardinsmenyn. Varorna att köpa skickas som en avisering, som en klockapp som Amazfish vidarebefordrar till klockan, och listan uppdateras medan du handlar.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Om</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licens</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Gjord med omfattande hjälp av ett LLM-verktyg: det mesta av koden, testerna och översättningarna skrevs av Claude (Anthropic) via Claude Code, under upphovspersonens ledning och tester.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Källkod</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

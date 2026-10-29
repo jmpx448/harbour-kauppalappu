@@ -96,6 +96,49 @@
         <source>Type an item in the field above</source>
         <translation>Saisissez un article dans le champ ci-dessus</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Paramètres</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Paramètres</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Montre</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Liste sur la montre</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Ajoute « Envoyer à la montre » au menu déroulant. Les articles à acheter sont envoyés sous forme de notification, qu&apos;une application de montre comme Amazfish transmet à la montre, et la liste se met à jour pendant vos courses.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>À propos</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licence</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Réalisé avec une utilisation intensive d&apos;un outil LLM : la plupart du code, des tests et des traductions ont été écrits par Claude (Anthropic) via Claude Code, sous la direction et avec les tests de l&apos;auteur.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Code source</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

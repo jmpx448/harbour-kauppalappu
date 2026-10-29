@@ -98,6 +98,49 @@
         <source>Type an item in the field above</source>
         <translation>Введите товар в поле выше</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Часы</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Список на часах</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Добавляет «Отправить на часы» в вытягиваемое меню. Товары к покупке отправляются уведомлением, которое приложение для часов, например Amazfish, пересылает на часы, и список обновляется по ходу покупок.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>О программе</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Версия</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Лицензия</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Сделано с активным использованием инструмента LLM: бо́льшую часть кода, тестов и переводов написал Claude (Anthropic) через Claude Code под руководством автора и с его тестированием.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Исходный код</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

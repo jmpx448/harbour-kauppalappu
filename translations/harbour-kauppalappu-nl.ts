@@ -96,6 +96,49 @@
         <source>Type an item in the field above</source>
         <translation>Typ een artikel in het veld hierboven</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Instellingen</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Instellingen</translation>
+    </message>
+    <message>
+        <source>Watch</source>
+        <translation>Horloge</translation>
+    </message>
+    <message>
+        <source>Watch list</source>
+        <translation>Lijst op horloge</translation>
+    </message>
+    <message>
+        <source>Adds “Send to watch” to the pull-down menu. The items to buy are sent as a notification, which a watch app such as Amazfish forwards to the watch, and the list updates as you shop.</source>
+        <translation>Voegt ‘Naar horloge sturen’ toe aan het pull-downmenu. De te kopen artikelen worden als melding verstuurd, die een horloge-app zoals Amazfish doorstuurt naar het horloge, en de lijst wordt bijgewerkt terwijl je winkelt.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Over</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Versie</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licentie</translation>
+    </message>
+    <message>
+        <source>Made with heavy use of an LLM tool: most of the code, tests and translations were written by Claude (Anthropic) through Claude Code, under the author&apos;s direction and testing.</source>
+        <translation>Gemaakt met intensief gebruik van een LLM-hulpmiddel: het grootste deel van de code, tests en vertalingen is geschreven door Claude (Anthropic) via Claude Code, onder leiding en met tests van de auteur.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation>Broncode</translation>
+    </message>
 </context>
 <context>
     <name>harbour-kauppalappu</name>

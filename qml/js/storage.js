@@ -139,3 +139,18 @@ function forget(db, name) {
         tx.executeSql("DELETE FROM history WHERE name_key = ?", [Logic.normalize(name)]);
     });
 }
+
+// User settings in the settings table (values are strings; "schema" is reserved).
+function setting(db, name, fallback) {
+    var r = [];
+    db.readTransaction(function (tx) {
+        r = _rows(tx.executeSql("SELECT value FROM settings WHERE name = ?", [name]));
+    });
+    return r.length ? r[0].value : fallback;
+}
+
+function setSetting(db, name, value) {
+    db.transaction(function (tx) {
+        tx.executeSql("INSERT OR REPLACE INTO settings (name, value) VALUES (?, ?)", [name, String(value)]);
+    });
+}

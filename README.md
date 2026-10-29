@@ -13,16 +13,17 @@ SQLite database on the phone (QtQuick.LocalStorage), in the Sailjail data direct
 - Input: `2 l milk`, `Pepsi Max 1,5 l`, `eggs x2`, `Milk 3 + 2 skimmed` (parts joined with
   plus signs are kept as the quantity verbatim). Adding the same item again merges the
   quantities: equal units are summed, anything else is chained with a plus.
-- Tap to tick an item, long press to edit or delete. Pull-down menu: clear collected.
+- Tap to tick an item, long press to edit or delete. Pull-down menu: settings, clear collected.
 - Order: drag an item to buy by its handle (≡); the list scrolls by itself at the edges.
   A new item goes to the end.
 - Suggestions from items added before: a tap fills the name into the field (`Onion `), and
   the quantity can be typed after it. A long press on a suggestion forgets it.
-- Watch (optional): pull-down → Send to watch posts the items to buy as a notification,
-  which [Amazfish](https://github.com/piggz/harbour-amazfish) forwards to the watch (read
-  only). Adding, editing, deleting and ticking items update the list on the watch by
-  themselves until everything is collected. The watch items are shown only when a watch is
-  paired in Amazfish.
+- Watch (optional, off by default): turn on Settings → Watch list, then pull-down → Send
+  to watch posts the items to buy as a notification, which a watch app such as
+  [Amazfish](https://github.com/piggz/harbour-amazfish) forwards to the watch (read only).
+  Adding, editing, deleting and ticking items update the list on the watch by themselves
+  until everything is collected. The app does not look for a watch app or read its settings.
+- Settings also show the version, license and a link to the source code.
 
 Recognised units are listed in `UNITS` in `qml/js/logic.js` (metric units, a few Finnish
 packaging abbreviations, `pcs`, `oz`, `lb`); extending the list is a one-line change.
