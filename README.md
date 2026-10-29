@@ -43,7 +43,21 @@ New language: copy an existing `.ts` file to `harbour-kauppalappu-<lang>.ts`, se
     make test     # Node >= 22: logic, storage (node:sqlite as a LocalStorage stand-in), ES5 guard
     make ts       # refresh translations/*.ts from the sources (lupdate-qt5)
     make copy     # builds the noarch RPM (needs lrelease-qt5, rpmbuild) and copies it to the phone's /tmp
-    # on the phone: devel-su pkcon -y -p install-local /tmp/harbour-kauppalappu-<version>-1.noarch.rpm
+    # on the phone: devel-su pkcon -y -p install-local /tmp/harbour-kauppalappu-<version>-<release>.noarch.rpm
+
+The spec builds from a source tarball (`Source0`): `make rpm` packs the work tree into
+`dist/`, and on the Sailfish OS OBS ([SailfishOS:Chum](https://github.com/sailfishos-chum/main))
+the `tar_git` service packs a git tag. The `.qm` translations are built in `%build`. The
+same spec gives the Harbour RPM; the Chum metadata at the end of `%description` is only
+included in Chum builds (`%{?_chum}`). OBS `_service` for a release:
+
+    <services>
+      <service name="tar_git">
+        <param name="url">https://github.com/jmpx448/harbour-kauppalappu.git</param>
+        <param name="branch">main</param>
+        <param name="revision">0.2.4-2</param>
+      </service>
+    </services>
 
 **Qt 5.6 = ES5:** no `let`/`const`/arrow functions/template strings under `qml/`
 (`tests/test_es5.js`). QtQuick imports are `2.0`, no Qt >= 5.7 features (e.g. `padding`).
