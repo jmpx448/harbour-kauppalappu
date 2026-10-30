@@ -1,6 +1,6 @@
 Name:       harbour-kauppalappu
-Version:    0.2.4
-Release:    2
+Version:    0.2.5
+Release:    1
 Summary:    Shopping list for Sailfish OS
 License:    MIT
 URL:        https://github.com/jmpx448/harbour-kauppalappu
@@ -21,8 +21,9 @@ Requires:   nemo-qml-plugin-notifications-qt5
 Kauppalappu is a simple shopping list for Sailfish OS. Add items with a
 quantity, tick them off as you shop, and drag them into the order you walk
 through the store. Items you have added before are offered as suggestions,
-and adding the same item again merges the quantities. Optionally, the list
-can be sent to a watch: turn the watch list on in Settings, and a watch app
+and adding the same item again merges the quantities. Typos in the
+suggestions can be fixed or removed in Settings. Optionally, the list can
+be sent to a watch: turn the watch list on in Settings, and a watch app
 such as Amazfish forwards it to the watch, where it updates as you shop.
 
 All data stays on the phone. The app is translated into Finnish, German,

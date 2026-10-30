@@ -150,3 +150,29 @@ test("settings: fallback when unset, stored value after setSetting, survives ini
     assert.equal(S.setting(db, "watch", "1"), "0");
     assert.equal(S.setting(db, "schema", ""), "1");
 });
+
+test("renameHistory: typo fixed, merged into an existing suggestion, rejected", () => {
+    const db = fresh();
+    const hist = () => j(S.history(db)).sort((x, y) => x.name.localeCompare(y.name, "en"));
+    j(S.add(db, "Maito", 1));
+    j(S.add(db, "Maito", 5));
+    j(S.add(db, "Maits", 3));
+    j(S.add(db, "Tomati", 4));
+    // A new name → only the history changes, not the item on the list.
+    assert.equal(S.renameHistory(db, "tomati", "  Tomaatti "), "renamed");
+    assert.deepEqual(hist().map((x) => x.name), ["Maito", "Maits", "Tomaatti"]);
+    assert.ok(names(db).includes("Tomati"));
+    // Into an existing one → one row, times added up, the latest use kept.
+    assert.equal(S.renameHistory(db, "Maits", "Maito"), "merged");
+    assert.deepEqual(hist(), [{ name: "Maito", times: 3, lastUsed: 5 }, { name: "Tomaatti", times: 1, lastUsed: 4 }]);
+    // Only the spelling changes (same key) → no merging with itself.
+    assert.equal(S.renameHistory(db, "Maito", "MAITO"), "renamed");
+    assert.deepEqual(hist()[0], { name: "MAITO", times: 3, lastUsed: 5 });
+    // Empty name or a name that is not in the history → nothing changes.
+    assert.equal(S.renameHistory(db, "Maito", "   "), "empty");
+    assert.equal(S.renameHistory(db, "no such", "x"), "empty");
+    assert.equal(hist().length, 2);
+    // The new key is in use: adding the fixed name counts on the same row.
+    j(S.add(db, "tomaatti", 9));
+    assert.deepEqual(hist()[1], { name: "tomaatti", times: 2, lastUsed: 9 });
+});

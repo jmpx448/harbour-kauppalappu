@@ -100,6 +100,10 @@
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
+    <message>
+        <source>Removing suggestion</source>
+        <translation>Tar bort förslag</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -138,6 +142,57 @@
     <message>
         <source>Source code</source>
         <translation>Källkod</translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation>Förslag</translation>
+    </message>
+    <message>
+        <source>Edit suggestions</source>
+        <translation>Redigera förslag</translation>
+    </message>
+    <message>
+        <source>Every item you add is remembered and offered as a suggestion. Fix typos or remove items you no longer want.</source>
+        <translation>Varje vara du lägger till sparas och erbjuds som förslag. Rätta stavfel eller ta bort varor du inte längre vill ha.</translation>
+    </message>
+</context>
+<context>
+    <name>SuggestionsPage</name>
+    <message>
+        <source>Suggestions</source>
+        <translation>Förslag</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Redigera</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Ta bort</translation>
+    </message>
+    <message>
+        <source>No suggestions</source>
+        <translation>Inga förslag</translation>
+    </message>
+    <message>
+        <source>Items you add are remembered here and offered as suggestions</source>
+        <translation>Varor du lägger till sparas här och erbjuds som förslag</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Spara</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Suggestion</source>
+        <translation>Förslag</translation>
+    </message>
+    <message>
+        <source>If the name is already a suggestion, the two are combined. Items on the list do not change.</source>
+        <translation>Om namnet redan är ett förslag slås de två ihop. Varorna på listan ändras inte.</translation>
     </message>
 </context>
 <context>

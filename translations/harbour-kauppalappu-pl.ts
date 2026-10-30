@@ -102,6 +102,10 @@
         <source>Settings</source>
         <translation>Ustawienia</translation>
     </message>
+    <message>
+        <source>Removing suggestion</source>
+        <translation>Usuwanie podpowiedzi</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -140,6 +144,57 @@
     <message>
         <source>Source code</source>
         <translation>Kod źródłowy</translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation>Podpowiedzi</translation>
+    </message>
+    <message>
+        <source>Edit suggestions</source>
+        <translation>Edytuj podpowiedzi</translation>
+    </message>
+    <message>
+        <source>Every item you add is remembered and offered as a suggestion. Fix typos or remove items you no longer want.</source>
+        <translation>Każdy dodany produkt jest zapamiętywany i proponowany jako podpowiedź. Popraw literówki lub usuń produkty, których już nie potrzebujesz.</translation>
+    </message>
+</context>
+<context>
+    <name>SuggestionsPage</name>
+    <message>
+        <source>Suggestions</source>
+        <translation>Podpowiedzi</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edytuj</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>No suggestions</source>
+        <translation>Brak podpowiedzi</translation>
+    </message>
+    <message>
+        <source>Items you add are remembered here and offered as suggestions</source>
+        <translation>Dodane produkty są tu zapamiętywane i proponowane jako podpowiedzi</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Suggestion</source>
+        <translation>Podpowiedź</translation>
+    </message>
+    <message>
+        <source>If the name is already a suggestion, the two are combined. Items on the list do not change.</source>
+        <translation>Jeśli nazwa jest już podpowiedzią, obie zostaną połączone. Produkty na liście się nie zmieniają.</translation>
     </message>
 </context>
 <context>

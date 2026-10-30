@@ -28,6 +28,23 @@ Page {
                 onClicked: app.setWatchEnabled(!app.watchEnabled)
             }
 
+            SectionHeader { text: qsTr("Suggestions") }
+
+            ValueButton {
+                label: qsTr("Edit suggestions")
+                value: app.history.length
+                onClicked: pageStack.push(Qt.resolvedUrl("SuggestionsPage.qml"))
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                wrapMode: Text.Wrap
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.secondaryHighlightColor
+                text: qsTr("Every item you add is remembered and offered as a suggestion. "
+                           + "Fix typos or remove items you no longer want.")
+            }
+
             SectionHeader { text: qsTr("About") }
 
             DetailItem {

@@ -102,6 +102,10 @@
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
+    <message>
+        <source>Removing suggestion</source>
+        <translation>Удаление подсказки</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -140,6 +144,57 @@
     <message>
         <source>Source code</source>
         <translation>Исходный код</translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation>Подсказки</translation>
+    </message>
+    <message>
+        <source>Edit suggestions</source>
+        <translation>Изменить подсказки</translation>
+    </message>
+    <message>
+        <source>Every item you add is remembered and offered as a suggestion. Fix typos or remove items you no longer want.</source>
+        <translation>Каждый добавленный товар запоминается и предлагается как подсказка. Исправьте опечатки или удалите товары, которые больше не нужны.</translation>
+    </message>
+</context>
+<context>
+    <name>SuggestionsPage</name>
+    <message>
+        <source>Suggestions</source>
+        <translation>Подсказки</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Изменить</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <source>No suggestions</source>
+        <translation>Нет подсказок</translation>
+    </message>
+    <message>
+        <source>Items you add are remembered here and offered as suggestions</source>
+        <translation>Добавленные товары запоминаются здесь и предлагаются как подсказки</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Suggestion</source>
+        <translation>Подсказка</translation>
+    </message>
+    <message>
+        <source>If the name is already a suggestion, the two are combined. Items on the list do not change.</source>
+        <translation>Если такое название уже есть в подсказках, они объединяются. Товары в списке не меняются.</translation>
     </message>
 </context>
 <context>

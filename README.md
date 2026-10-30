@@ -17,7 +17,9 @@ SQLite database on the phone (QtQuick.LocalStorage), in the Sailjail data direct
 - Order: drag an item to buy by its handle (≡); the list scrolls by itself at the edges.
   A new item goes to the end.
 - Suggestions from items added before: a tap fills the name into the field (`Onion `), and
-  the quantity can be typed after it. A long press on a suggestion forgets it.
+  the quantity can be typed after it. A long press on a suggestion forgets it. All of them
+  can be fixed (typos) or deleted in Settings → Edit suggestions; fixing a typo into a name
+  that is already a suggestion combines the two.
 - Watch (optional, off by default): turn on Settings → Watch list, then pull-down → Send
   to watch posts the items to buy as a notification, which a watch app such as
   [Amazfish](https://github.com/piggz/harbour-amazfish) forwards to the watch (read only).

@@ -140,6 +140,35 @@ function forget(db, name) {
     });
 }
 
+// Fixing a suggestion (a typo in the history). Returns "empty" (rejected, nothing changed),
+// "renamed", or "merged": the new name was already a suggestion, so the two become one with
+// the times added up — "Maits" fixed to "Maito" must not leave two Maitos. Items on the list
+// are not touched: they are edited on the list.
+function renameHistory(db, oldName, newName) {
+    var n = Logic.clean(newName);
+    if (n === "")
+        return "empty";
+    var oldKey = Logic.normalize(oldName), newKey = Logic.normalize(n);
+    var result = "empty";
+    db.transaction(function (tx) {
+        var old = _rows(tx.executeSql("SELECT times, last_used FROM history WHERE name_key = ?", [oldKey]));
+        if (!old.length)
+            return;
+        var target = newKey === oldKey ? []
+            : _rows(tx.executeSql("SELECT times FROM history WHERE name_key = ?", [newKey]));
+        if (target.length) {
+            tx.executeSql("UPDATE history SET name = ?, times = times + ?, last_used = MAX(last_used, ?) "
+                          + "WHERE name_key = ?", [n, old[0].times, old[0].last_used, newKey]);
+            tx.executeSql("DELETE FROM history WHERE name_key = ?", [oldKey]);
+            result = "merged";
+        } else {
+            tx.executeSql("UPDATE history SET name_key = ?, name = ? WHERE name_key = ?", [newKey, n, oldKey]);
+            result = "renamed";
+        }
+    });
+    return result;
+}
+
 // User settings in the settings table (values are strings; "schema" is reserved).
 function setting(db, name, fallback) {
     var r = [];

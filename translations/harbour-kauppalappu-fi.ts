@@ -100,6 +100,10 @@
         <source>Settings</source>
         <translation>Asetukset</translation>
     </message>
+    <message>
+        <source>Removing suggestion</source>
+        <translation>Poistetaan ehdotus</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -138,6 +142,57 @@
     <message>
         <source>Source code</source>
         <translation>Lähdekoodi</translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation>Ehdotukset</translation>
+    </message>
+    <message>
+        <source>Edit suggestions</source>
+        <translation>Muokkaa ehdotuksia</translation>
+    </message>
+    <message>
+        <source>Every item you add is remembered and offered as a suggestion. Fix typos or remove items you no longer want.</source>
+        <translation>Jokainen lisäämäsi tuote muistetaan ja sitä tarjotaan ehdotuksena. Korjaa kirjoitusvirheet tai poista tuotteet, joita et enää tarvitse.</translation>
+    </message>
+</context>
+<context>
+    <name>SuggestionsPage</name>
+    <message>
+        <source>Suggestions</source>
+        <translation>Ehdotukset</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Muokkaa</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Poista</translation>
+    </message>
+    <message>
+        <source>No suggestions</source>
+        <translation>Ei ehdotuksia</translation>
+    </message>
+    <message>
+        <source>Items you add are remembered here and offered as suggestions</source>
+        <translation>Lisäämäsi tuotteet muistetaan täällä ja niitä tarjotaan ehdotuksina</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Tallenna</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peru</translation>
+    </message>
+    <message>
+        <source>Suggestion</source>
+        <translation>Ehdotus</translation>
+    </message>
+    <message>
+        <source>If the name is already a suggestion, the two are combined. Items on the list do not change.</source>
+        <translation>Jos nimi on jo ehdotuksena, ne yhdistetään. Listalla olevat tuotteet eivät muutu.</translation>
     </message>
 </context>
 <context>

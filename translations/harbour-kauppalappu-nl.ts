@@ -100,6 +100,10 @@
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
+    <message>
+        <source>Removing suggestion</source>
+        <translation>Suggestie wordt verwijderd</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -138,6 +142,57 @@
     <message>
         <source>Source code</source>
         <translation>Broncode</translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation>Suggesties</translation>
+    </message>
+    <message>
+        <source>Edit suggestions</source>
+        <translation>Suggesties bewerken</translation>
+    </message>
+    <message>
+        <source>Every item you add is remembered and offered as a suggestion. Fix typos or remove items you no longer want.</source>
+        <translation>Elk artikel dat je toevoegt wordt onthouden en als suggestie aangeboden. Verbeter typefouten of verwijder artikelen die je niet meer wilt.</translation>
+    </message>
+</context>
+<context>
+    <name>SuggestionsPage</name>
+    <message>
+        <source>Suggestions</source>
+        <translation>Suggesties</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Bewerken</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>No suggestions</source>
+        <translation>Geen suggesties</translation>
+    </message>
+    <message>
+        <source>Items you add are remembered here and offered as suggestions</source>
+        <translation>Artikelen die je toevoegt worden hier onthouden en als suggestie aangeboden</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Opslaan</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Suggestion</source>
+        <translation>Suggestie</translation>
+    </message>
+    <message>
+        <source>If the name is already a suggestion, the two are combined. Items on the list do not change.</source>
+        <translation>Als de naam al een suggestie is, worden de twee samengevoegd. Artikelen op de lijst veranderen niet.</translation>
     </message>
 </context>
 <context>

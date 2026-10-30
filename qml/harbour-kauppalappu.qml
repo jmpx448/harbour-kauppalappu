@@ -10,7 +10,7 @@ import "cover"
 ApplicationWindow {
     id: app
 
-    readonly property string version: "0.2.4"
+    readonly property string version: "0.2.5"
     property var db: null
     property alias items: itemModel
     property int toBuyCount: 0
@@ -169,6 +169,7 @@ ApplicationWindow {
 
     function clearCollected() { Storage.clearCollected(db); load(); }
     function forget(name) { Storage.forget(db, name); load(); }
+    function renameSuggestion(oldName, newName) { Storage.renameHistory(db, oldName, newName); load(); }
 
     Component.onCompleted: {
         db = LocalStorage.openDatabaseSync("kauppalappu", "", "Kauppalappu", 1000000);

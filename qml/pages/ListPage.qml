@@ -64,6 +64,7 @@ Page {
     }
 
     RemorsePopup { id: clearRemorse }
+    RemorsePopup { id: forgetRemorse }
 
     SilicaListView {
         id: list
@@ -156,8 +157,12 @@ Page {
                             input.cursorPosition = input.text.length;
                             input.forceActiveFocus();
                         }
-                        // A long press removes a typo from the suggestions for good.
-                        onPressAndHold: app.forget(modelData)
+                        // A long press removes a typo from the suggestions for good (all of
+                        // them can be fixed in Settings → Edit suggestions).
+                        onPressAndHold: {
+                            var name = modelData;
+                            forgetRemorse.execute(qsTr("Removing suggestion"), function () { app.forget(name); });
+                        }
                     }
                 }
             }

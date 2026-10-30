@@ -100,6 +100,10 @@
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
+    <message>
+        <source>Removing suggestion</source>
+        <translation>Suppression de la suggestion</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -138,6 +142,57 @@
     <message>
         <source>Source code</source>
         <translation>Code source</translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation>Suggestions</translation>
+    </message>
+    <message>
+        <source>Edit suggestions</source>
+        <translation>Modifier les suggestions</translation>
+    </message>
+    <message>
+        <source>Every item you add is remembered and offered as a suggestion. Fix typos or remove items you no longer want.</source>
+        <translation>Chaque article ajouté est mémorisé et proposé comme suggestion. Corrigez les fautes de frappe ou supprimez les articles dont vous ne voulez plus.</translation>
+    </message>
+</context>
+<context>
+    <name>SuggestionsPage</name>
+    <message>
+        <source>Suggestions</source>
+        <translation>Suggestions</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Modifier</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
+    </message>
+    <message>
+        <source>No suggestions</source>
+        <translation>Aucune suggestion</translation>
+    </message>
+    <message>
+        <source>Items you add are remembered here and offered as suggestions</source>
+        <translation>Les articles ajoutés sont mémorisés ici et proposés comme suggestions</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Enregistrer</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Suggestion</source>
+        <translation>Suggestion</translation>
+    </message>
+    <message>
+        <source>If the name is already a suggestion, the two are combined. Items on the list do not change.</source>
+        <translation>Si le nom est déjà une suggestion, les deux sont fusionnées. Les articles de la liste ne changent pas.</translation>
     </message>
 </context>
 <context>
