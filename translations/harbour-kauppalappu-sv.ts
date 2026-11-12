@@ -15,6 +15,10 @@
         <source>The list is empty</source>
         <translation>Listan är tom</translation>
     </message>
+    <message>
+        <source>All collected</source>
+        <translation>Allt köpt</translation>
+    </message>
 </context>
 <context>
     <name>EditDialog</name>
@@ -103,6 +107,14 @@
     <message>
         <source>Removing suggestion</source>
         <translation>Tar bort förslag</translation>
+    </message>
+    <message>
+        <source>All collected</source>
+        <translation>Allt köpt</translation>
+    </message>
+    <message>
+        <source>Collecting</source>
+        <translation>Bockar av</translation>
     </message>
 </context>
 <context>

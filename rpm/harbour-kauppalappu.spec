@@ -1,5 +1,5 @@
 Name:       harbour-kauppalappu
-Version:    0.2.5
+Version:    0.2.6
 Release:    1
 Summary:    Shopping list for Sailfish OS
 License:    MIT

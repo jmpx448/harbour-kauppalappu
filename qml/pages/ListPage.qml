@@ -8,6 +8,18 @@ Page {
 
     // itemId of the item being dragged, -1 when nothing is dragged.
     property int dragged: -1
+    // Ticking an item off waits this long (ms) for a tap that cancels it.
+    property int collectDelay: 3000
+    // Items whose timer ran out during a drag: reloading the list then would move the
+    // dragged row back, so they are collected when the drag ends.
+    property var waitingForDrag: []
+
+    function collect(itemId) {
+        if (dragged >= 0)
+            waitingForDrag.push(itemId);
+        else if (app.collect(itemId))
+            allCollected.show();
+    }
     // Finger y in the list's view (not its content) while dragging: scrolling moves the
     // content under the finger even when the finger does not move.
     property real fingerY: 0
@@ -94,7 +106,8 @@ Page {
 
             PageHeader {
                 title: qsTr("Shopping list")
-                description: app.toBuyCount > 0 ? qsTr("%n to buy", "", app.toBuyCount) : ""
+                description: app.toBuyCount > 0 ? qsTr("%n to buy", "", app.toBuyCount)
+                                                : (app.collectedCount > 0 ? qsTr("All collected") : "")
             }
 
             TextField {
@@ -203,7 +216,16 @@ Page {
                 }
             }
 
-            onClicked: app.toggleCollected(model.itemId)
+            // Ticking off shows a countdown in the row first, and a tap on it cancels: a mistaken
+            // tap in the shop does not move the item away. Unticking is immediate.
+            onClicked: {
+                var itemId = model.itemId;
+                if (model.collected)
+                    app.toggleCollected(itemId);
+                else
+                    row.remorseAction(qsTr("Collecting"), function () { page.collect(itemId); },
+                                      page.collectDelay);
+            }
 
             Rectangle {
                 anchors.fill: parent
@@ -274,6 +296,12 @@ Page {
                         page.dragged = -1;
                         list.interactive = true;
                         app.saveOrder();
+                        var waiting = page.waitingForDrag;
+                        page.waitingForDrag = [];
+                        for (var i = 0; i < waiting.length; ++i) {
+                            if (app.collect(waiting[i]))
+                                allCollected.show();
+                        }
                     }
 
                     onPressed: {
@@ -298,5 +326,84 @@ Page {
         }
 
         VerticalScrollDecorator { }
+    }
+
+    // When the last item to buy is collected: a large tick and "All collected" over the dimmed
+    // page, meant to be seen at a glance in the shop. Goes away by itself or with a tap.
+    MouseArea {
+        id: allCollected
+        anchors.fill: parent
+        z: 10
+        opacity: 0.0
+        visible: opacity > 0.0
+        enabled: visible
+
+        function show() {
+            bigTick.requestPaint();
+            hideTimer.restart();
+            opacity = 1.0;
+        }
+        function hide() {
+            hideTimer.stop();
+            opacity = 0.0;
+        }
+
+        Behavior on opacity { FadeAnimation { duration: 400 } }
+        onClicked: hide()
+
+        Timer {
+            id: hideTimer
+            interval: 4000
+            onTriggered: allCollected.hide()
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: Theme.highlightDimmerColor
+            opacity: 0.85
+        }
+
+        Column {
+            anchors.centerIn: parent
+            width: parent.width - 2 * Theme.horizontalPageMargin
+            spacing: Theme.paddingLarge * 2
+
+            // Drawn rather than a theme icon, so that it stays sharp at this size.
+            Canvas {
+                id: bigTick
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: Math.min(allCollected.width, allCollected.height) * 0.55
+                height: width
+                property color color: Theme.highlightColor
+                onColorChanged: requestPaint()
+                onWidthChanged: requestPaint()
+                onPaint: {
+                    var c = getContext("2d");
+                    var w = width, line = w * 0.06;
+                    c.reset();
+                    c.strokeStyle = color;
+                    c.lineWidth = line;
+                    c.lineCap = "round";
+                    c.lineJoin = "round";
+                    c.beginPath();
+                    c.arc(w / 2, w / 2, w / 2 - line, 0, 2 * Math.PI);
+                    c.stroke();
+                    c.beginPath();
+                    c.moveTo(w * 0.28, w * 0.52);
+                    c.lineTo(w * 0.44, w * 0.68);
+                    c.lineTo(w * 0.73, w * 0.36);
+                    c.stroke();
+                }
+            }
+            Label {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
+                text: qsTr("All collected")
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeHuge * 1.3
+                font.family: Theme.fontFamilyHeading
+            }
+        }
     }
 }

@@ -16,6 +16,10 @@
         <source>The list is empty</source>
         <translation>Список пуст</translation>
     </message>
+    <message>
+        <source>All collected</source>
+        <translation>Всё куплено</translation>
+    </message>
 </context>
 <context>
     <name>EditDialog</name>
@@ -105,6 +109,14 @@
     <message>
         <source>Removing suggestion</source>
         <translation>Удаление подсказки</translation>
+    </message>
+    <message>
+        <source>All collected</source>
+        <translation>Всё куплено</translation>
+    </message>
+    <message>
+        <source>Collecting</source>
+        <translation>Отмечается как купленное</translation>
     </message>
 </context>
 <context>

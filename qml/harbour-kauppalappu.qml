@@ -10,7 +10,7 @@ import "cover"
 ApplicationWindow {
     id: app
 
-    readonly property string version: "0.2.5"
+    readonly property string version: "0.2.6"
     property var db: null
     property alias items: itemModel
     property int toBuyCount: 0
@@ -82,6 +82,14 @@ ApplicationWindow {
         load();
         if (watchActive)
             sendToWatch();
+    }
+    // Ticking off from the list, after its countdown. Returns true when that was the last item
+    // to buy (the list page then says so). Nothing is done if the item is no longer to buy.
+    function collect(itemId) {
+        if (!_isToBuy(itemId))
+            return false;
+        toggleCollected(itemId);
+        return toBuyCount === 0;
     }
     // Editing or deleting a collected item does not change the watch list (it only has items to buy).
     function _isToBuy(itemId) {

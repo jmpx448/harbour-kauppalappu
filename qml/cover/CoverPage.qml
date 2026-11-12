@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-// Cover on the home screen: how many items are left to buy and the first five.
+// Cover on the home screen: how many items are left to buy and the first five, or that
+// everything has been collected.
 CoverBackground {
     Column {
         x: Theme.paddingLarge
@@ -33,7 +34,7 @@ CoverBackground {
 
     CoverPlaceholder {
         visible: app.toBuyCount === 0
-        text: qsTr("The list is empty")
+        text: app.collectedCount > 0 ? qsTr("All collected") : qsTr("The list is empty")
         icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-kauppalappu.png"
     }
 }

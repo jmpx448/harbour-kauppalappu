@@ -15,6 +15,10 @@
         <source>The list is empty</source>
         <translation>Lista on tyhjä</translation>
     </message>
+    <message>
+        <source>All collected</source>
+        <translation>Kaikki kerätty</translation>
+    </message>
 </context>
 <context>
     <name>EditDialog</name>
@@ -103,6 +107,14 @@
     <message>
         <source>Removing suggestion</source>
         <translation>Poistetaan ehdotus</translation>
+    </message>
+    <message>
+        <source>All collected</source>
+        <translation>Kaikki kerätty</translation>
+    </message>
+    <message>
+        <source>Collecting</source>
+        <translation>Merkitään kerätyksi</translation>
     </message>
 </context>
 <context>

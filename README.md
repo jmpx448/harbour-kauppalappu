@@ -14,6 +14,9 @@ SQLite database on the phone (QtQuick.LocalStorage), in the Sailjail data direct
   plus signs are kept as the quantity verbatim). Adding the same item again merges the
   quantities: equal units are summed, anything else is chained with a plus.
 - Tap to tick an item, long press to edit or delete. Pull-down menu: settings, clear collected.
+  A ticked item moves to the collected ones after a three-second countdown in the row; tap the
+  row meanwhile to cancel. When the last item is collected, a large tick and “All collected” are
+  shown over the list for a moment (a tap closes them), and the header and the cover say so too.
 - Order: drag an item to buy by its handle (≡); the list scrolls by itself at the edges.
   A new item goes to the end.
 - Suggestions from items added before: a tap fills the name into the field (`Onion `), and

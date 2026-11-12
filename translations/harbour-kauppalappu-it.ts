@@ -15,6 +15,10 @@
         <source>The list is empty</source>
         <translation>La lista è vuota</translation>
     </message>
+    <message>
+        <source>All collected</source>
+        <translation>Tutto acquistato</translation>
+    </message>
 </context>
 <context>
     <name>EditDialog</name>
@@ -103,6 +107,14 @@
     <message>
         <source>Removing suggestion</source>
         <translation>Rimozione del suggerimento</translation>
+    </message>
+    <message>
+        <source>All collected</source>
+        <translation>Tutto acquistato</translation>
+    </message>
+    <message>
+        <source>Collecting</source>
+        <translation>Spunta in corso</translation>
     </message>
 </context>
 <context>
